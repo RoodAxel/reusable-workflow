@@ -1,0 +1,38 @@
+name: Spring workflow
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+jobs:
+  project-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: 'maven'
+
+      - name: Build and test
+        run: ./mvnw verify -B
+
+      - name: Upload Jacoco report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: 'coverage-report'
+          path: "target/site/jacoco"
+          retention-days: "1"
+
+      - name: Coverage summary
+        uses: ./.github/workflows/scripts
