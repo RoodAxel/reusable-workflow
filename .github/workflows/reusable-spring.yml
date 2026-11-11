@@ -4,10 +4,12 @@ permissions:
   contents: read
 
 on:
-  pull_request:
-    branches: [main]
-  push:
-    branches: [main]
+  workflow_call:
+    inputs:
+      java-version:
+        required: true
+        type: string
+
 jobs:
   project-build:
     runs-on: ubuntu-latest
@@ -16,11 +18,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
-      - name: Set up JDK 21
+      - name: Set up JDK ${{ inputs.java-version }}
         uses: actions/setup-java@v6
         with:
           distribution: temurin
-          java-version: '21'
+          java-version: ${{ inputs.java-version }}
           cache: 'maven'
 
       - name: Build and test
@@ -35,4 +37,5 @@ jobs:
           retention-days: "1"
 
       - name: Coverage summary
-        uses: ./.github/workflows/scripts
+        if: ${{ !cancelled() }}
+        uses: RoodAxel/reusable-workflow/.github/actions/coverage-summary@main

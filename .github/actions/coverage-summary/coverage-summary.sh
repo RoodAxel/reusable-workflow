@@ -28,7 +28,7 @@ awk -F',' '
     print ""
     print "| Metric | Covered | Total | Coverage |"
     print "| :--- | ---: | ---: | ---: |"
-    printf "| Lignes | %d | %d | %.1f%% |\n", line_covered, line_covered + line_missed, lp
+    printf "| Lines | %d | %d | %.1f%% |\n", line_covered, line_covered + line_missed, lp
     printf "| Branches | %d | %d | %.1f%% |\n", branch_covered, branch_covered + branch_missed, bp
   }
 ' "$REPORT_PATH" >> "$OUTPUT"

@@ -1,0 +1,10 @@
+name: Coverage composite
+
+description: generate a code coverage summary for a spring project
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run coverage-summary.sh
+      run: bash "$GITHUB_ACTION_PATH/coverage-summary.sh"
+      shell: bash

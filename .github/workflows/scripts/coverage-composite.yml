@@ -1,8 +1,0 @@
-name: Coverage composite
-
-runs:
-  using: "composite"
-  steps:
-    - name: Run coverage-summary.sh
-      run: coverage-summary.sh
-      shell: bash
