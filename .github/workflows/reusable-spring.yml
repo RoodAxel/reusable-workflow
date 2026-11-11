@@ -38,4 +38,4 @@ jobs:
 
       - name: Coverage summary
         if: ${{ !cancelled() }}
-        uses: RoodAxel/reusable-workflow/.github/actions/coverage-summary@main
+        uses: roodaxel/reusable-workflow/.github/actions/coverage-summary@v1
